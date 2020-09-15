@@ -7,13 +7,13 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Claire Duvallet"
+title                    : "Guilherme Kinzel"
 title_separator          : "-"
-name                     : &name "Claire Duvallet"
-description              : &description "Claire Duvallet"
-url                      : https://cduvallet.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
+name                     : &name "Guilherme Kinzel"
+description              : &description "Guilherme Kinzel"
+url                      : https://kinzel.github.io # the base hostname & protocol for your site e.g. "https://mmistakes.github.io"
 baseurl                  : "" # the subpath of your site, e.g. "/blog"
-repository               : "cduvallet/cduvallet.github.io"
+repository               : "kinzel/kinzel.github.io"
 teaser                   :  # filename of teaser fallback teaser image placed in /images/, .e.g. "500x300.png"
 breadcrumbs              : false # true, false (default)
 words_per_minute         : 160
@@ -78,13 +78,13 @@ analytics:
 
 # Site Author
 author:
-  name             : "Claire Duvallet"
-  avatar           : "claire_duvallet.jpg"
+  name             : "Guilherme Kinzel"
+  avatar           : "TODO.jpg"
   bio              : "data science @ Biobot Analytics | public health data, microbiome, personalized medicine | gender and racial equity in STEM | former Luce Scholar in Cambodia | she/hers"
   #location         : "Boston, MA"
   employer         :
-  googlescholar    : "https://scholar.google.com/citations?user=sXD-7J4AAAAJ&hl=en&oi=ao"
-  email            : "cduvallet@gmail.com"
+  googlescholar    : 
+  email            : "guikinzel@gmail.com"
   uri              :
   bitbucket        :
   codepen          :
@@ -92,19 +92,19 @@ author:
   flickr           :
   facebook         :
   foursquare       :
-  github           : "cduvallet"
+  github           : "Kinzel"
   google_plus      :
   keybase          :
   instagram        :
   lastfm           :
-  linkedin         : "cduvallet"
-  orcid            : #"http://orcid.org/yourorcidurl"
+  linkedin         : "guilhermekinzel"
+  orcid            : 
   pinterest        :
   soundcloud       :
-  stackoverflow    : # http://stackoverflow.com/users/123456/username
+  stackoverflow    : 
   steam            :
   tumblr           :
-  twitter          : "cduvallet"
+  twitter          : 
   vine             :
   weibo            :
   xing             :
