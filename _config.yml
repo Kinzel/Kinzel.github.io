@@ -55,7 +55,7 @@ yandex_site_verification :
 
 # Social Sharing
 twitter:
-  username               : cduvallet
+  username               : guikinzel
 facebook:
   username               :
   app_id                 :
@@ -79,9 +79,9 @@ analytics:
 # Site Author
 author:
   name             : "Guilherme Kinzel"
-  avatar           : "TODO.jpg"
-  bio              : "data science @ Biobot Analytics | public health data, microbiome, personalized medicine | gender and racial equity in STEM | former Luce Scholar in Cambodia | she/hers"
-  #location         : "Boston, MA"
+  avatar           : "gkin_perf.jpg"
+  bio              : "investimentos quantitativos @ Engenheiro | gestão de carterias | modelos estatísticos | automação de estratégias"
+  location         : "Rio de Janeiro, Brasil"
   employer         :
   googlescholar    : 
   email            : "guikinzel@gmail.com"
