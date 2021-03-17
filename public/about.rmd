@@ -1,0 +1,61 @@
+---
+date: "2016-05-05T21:48:51-07:00"
+title: "About"
+output: 
+  html_document
+---
+
+Me chamo Guilherme Kinzel, moro no Rio de Janeiro/Brasil.
+
+Sou formado em Engenharia pela PUC-Rio desde 2015 e atuo no mercado financeiro desde 2009. Possuo as certificações brasileiras pela Anbima: [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) desde 2014 e [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) desde 2020.
+
+Sou meio-maratonista, e meu meu melhor tempo foi de 2h e 22 minutos para 21km! Já terminei a São Silvestre também. Curto rock e eletrônico. Gremista não praticante. Meu escritor favorito é Bernard Cornwell e não possuo uma série favorita.
+
+## Profissional
+
+Meus interesses profissionais são envoltos em: mercado financeiro, estatística e programação.
+
+Já trabalhei com *valuation*, elaboração de infomemos, criação de fundo e contato com investidores, numa boutique financeira em Ipanema. Uma empresa com equipe enxuta, onde tive contato diário com os sócios - pessoas de extrema inteligência e carisma.
+
+Hoje trabalho com consultoria e meus próprios modelos de *machine learning* aplicados diretamente no mercado.
+
+## Acadêmico
+
+Meu trabalho de final de curso: [Trading Quantitativo: Modelagem Via Cadeira Oculta de Markov usando R](https://www.maxwell.vrac.puc-rio.br/colecao.php?strSecao=resultado&nrSeq=28556@1) onde apresentei para uma banca de três professores da área sobre algoritmos de Viterbi, Forward-Backward e problemas canônicos envolvidos.
+
+Na faculdade eu sempre estive atrás, paralelamente, de artigos que fossem me desenvolver no conhecimento em modelar séries temporais. Já desenvolvi por conta própria algoritmos genéticos em C em Ubuntu, decomposição por Wavelet, séries de Taylor e estudos de movimento geométrico Browniano.
+
+## MIT
+
+Participei do primeiro bloco de alunos do [MicroMasters](https://micromasters.mit.edu/) Statistics and Data Science do MIT (*Massachusetts Institute of Technology*), onde me destaquei com 96% na cadeira de *Machine Learning with Python: from Linear Models to Deep Learning*. Onde também deixei minha colaboração com presença atuante no tira-dúvidas em auxílio dos monitores e códigos gráficos para facilitar entendimento de rotinas como Perceptron, Kernel RGF, PCA e outros, em todos os cursos, inclusive nos de estatística (86%) e probabilidade (89%).
+
+## mt5R
+
+[mt5R](https://kinzel.github.io/mt5R/) é um pacote em linguagem R desenvolvido por mim e feito para toda comunidade financeira ao redor do mundo. Torna realidade a integração entre R e uma das plataformas de *trading* mais utilizadas mundialmente, o MetaTrader 5 (MT5). 
+
+Clique [aqui](linkparaomt5Rnosite) para saber mais.
+
+## Programação
+
+Meu interesse de programação começou quando criança, quando jogava um jogo chamado Neverwinter Nights. Foi uma tremenda surpresa quando mais tarde descobri, antes de entrar na faculdade, que a linguagem era extremamente próxima a C. A intercambialidade foi instantânea. Já programei em C, MQL, VBA, R, Python e SageMath.
+
+## Blog "I'm GK"
+
+Aqui neste espaço eu espero poder ajudar o máximo possível com o conhecimento que adquiri com os anos, tanto como técnica, tanto como opinião pessoal. Com exceção dos ativos em que conversamos, que possuem preços, as informações e ferramentas aqui são todas de graça.
+
+* R é de graça ✔️
+* RStudo é de graça ✔️
+* MT5 é de graça ✔️
+* mt5R é de graça ✔️
+* Blog *"I'm GK"* é de graça ✔️
+
+Vamos juntos extrair o máximo de informação de qualidade para que você poder fazer as decisões acertadas. 
+
+E quem sabe não ajudo a próxima geração de *quants* brasileiros? Espero começar ajudando você!
+
+A grande maioria dos posts do *"I'm GK"* serão em português, entretanto, aqueles focados em *machine learning* serão em inglês. Serão todos fora de qualquer série programada. O intuito é ajudar todos e lá fora há também escassez de informação! Principalmente informação mastigada dos modelos taxados de *black boxes*.
+
+## Por que "GK"?
+
+Meus amigos e conhecidos no exterior não conseguem pronunciar o meu nome, então me apresento como "GK". Pois é!
+

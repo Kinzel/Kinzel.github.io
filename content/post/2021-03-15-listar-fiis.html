@@ -1,0 +1,170 @@
+---
+title: "Listar FIIs como um supermercado"
+author: "Guilherme Kinzel"
+date: 2021-03-15T21:13:14-05:00
+categories: ["R"]
+tags: ["FII", "R", "Web scrapping"]
+---
+
+
+
+<p><em>Já se imaginou dentro de um supermercado de FIIs?</em></p>
+<center>
+<img src="/images/supermarket.jpg" width="250" />
+</center>
+<p>Passeando pelos corredores do setor de Logística, há nas prataleiras:</p>
+<ul>
+<li><strong>FII A</strong> com 5,0% <em>Dividend Yield</em> e 20% do caixa disponível e;</li>
+<li><strong>FII B</strong> com 6,0% <em>Dividend Yield</em> e 1% do caixa disponível.</li>
+</ul>
+<p>Perceba que ao analisar a embalagem você facilmente pode mudar de opinião de qual produto levar para casa.</p>
+<p>Aqui neste post do blog <em>I’m GK!</em> eu ajudarei você a fazer uma lista completa de todos os FIIs negociáveis na Bovespa, e quem escolhe as informações da embalagem é você!</p>
+<p><em>Este é o primeiro post da série aposentadoria personalizada.</em></p>
+<div id="introdução" class="section level2">
+<h2>Introdução</h2>
+<p>É possível se aposentar protegido da inflação e ganhar, em valores atuais, mais de R$ 15 mil por mês daqui 35 anos? Eu vou lhe dar as ferramentas, e você quem me dirá se é fácil ou difícil! Uma coisa você certamente saberá no final da série <em>aposentadoria personalizada</em>: <strong>como fazer</strong>.</p>
+<p>Nesse post eu mostrarei e ensinarei fazer uma tabela de FIIs para você tomar as melhores decisões de investimento para formação de renda futura. Abaixo uma imagem exemplo de como ficará a nossa tabela com os indicadores escolhidos!</p>
+<center>
+<p><img src="/images/tabelafiiex.png" width="400" /></p>
+<font size = "1">Aperte na imagem para aproximar</font>
+</center>
+<p>Você pode visualizar a tabela completa <a href="http://">aqui</a>.</p>
+<p>No final, utilizaremos o maquinário do R para estudarmos os setores e traçaremos gráficos para melhor apoiarmos nossas decisões.</p>
+<p>Caso você não saiba o que seja um FII ⚠️ (fundo de investimento imobiliário) talvez esse não seja um conteúdo para você - ainda! Recomendo que estude um pouco mais sobre o assunto, pois não abordaremos tópicos que outros já entraram em profundidade, por exemplo: como comprá-los na corretora, o que são rendimentos e etc.</p>
+</div>
+<div id="indicadores" class="section level2">
+<h2>Indicadores</h2>
+<p>No nosso supermercado de FIIs somos nós que escolhemos as embalagens! Escolheremos os indicadores que mais nos expressarão em poucas palavras - ou números.</p>
+<p><font size = "2"></p>
+<ol style="list-style-type: decimal">
+<li>Ticker</li>
+<li>Nome</li>
+<li>Setor</li>
+<li>Gestor</li>
+<li>Cotação</li>
+<li>Volume médio diário</li>
+<li>P/VP</li>
+<li>MM200</li>
+<li>Último <em>Yield</em></li>
+<li><em>Dividend Yield</em></li>
+<li>Mediana <em>Yields (1M)</em> <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></li>
+<li>Valor em caixa</li>
+</ol>
+<p></font></p>
+<p>Queremos ter uma boa idéia na hora de analisarmos as prateleiras: qual setor pertence? Quanto é o seu P/VP? Vislumbrando de um todo, eventualmente poderemos prospectar mais afundo o FII para levarmos para adquirirmos e levar para casa.</p>
+<div id="por-que-destes-indicadores" class="section level4">
+<h4>Por que destes indicadores?</h4>
+<p><em>(contém opiniões pessoais)</em></p>
+<p><strong>Setor:</strong> não invista em FIIs que pertençam a setores com futuro nebuloso ou em que o inquilino tenha muito poder de negociação no contrato. Setores que na minha avaliação são de boa segurança para longo prazo, exemplos: residenciais, shoppings, papel (que seja bem diversificado), logística. Exemplos de não seguros ou poder de negociação excessivo: agências bancárias, hospitais. Não leve as minhas conclusões como suas também, faça a sua própria análise!</p>
+<p><strong>Gestor:</strong> é o DNA do FII. Assunto pouco abordado, pois quando é comentado sobre diversificação é mais discorrido sobre diversificação setorial. Não menospreze a informação de gestor ou de administrador, porque uma grande parcela dos FIIs entrega resultado aos diretamente envolvidos e não aos cotistas. Fuja de FIIs que possuam DNA que não seja voltado para você - o cotista.</p>
+<p><strong>Volume médio diário:</strong> você pode correr o risco de não conseguir vender ou rotacionar os ativos em caso de oportunidades aparecerem. Sempre dê preferência a FIIs de volume médio diário razoáveis.</p>
+<p><strong>P/VP:</strong><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> métrica muito utilizada no mercado, entretanto, na minha avaliação pessoal, este indicador é <em>overrated</em> <a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>: simplifica excessivamente a avaliação. Use-o com cautela, deixar de comprar FIIs que possuam P/VP &gt; 1 pode levar você a perder ótimas oportunidades.</p>
+<p><strong>MM200:</strong> a diferença entre o preço da cota e a média móvel de 200 períodos. Indicador excelente para saber quando a cota está “espichada” para cima, ou para baixo. Será essencial para análises em sintonia do <em>JdK RS-Momentum</em> do <a href="https://www.relativerotationgraphs.com/">RRG charts</a>, ou <em>relative rotational graphs</em>.</p>
+<p><strong>Yields:</strong> nosso foco será montar uma carteira de renda para longo prazo e aqui está o que não pode faltar na nossa embalagem. Não queremos saber se somente ele irá nos pagar bem, mas também a sua regularidade. Usamos mediana ao invés de média porque a primeira é muito mais resistente a <em>outliers</em>, um FII pode dar um rendimento extremamente atípico, e a avaliação da média ficará descaracterizada por causa da amostra abrupta, já a mediana não será tão afetada - prefira mediana à média nestas ocasiões. Perceba a diferença que a escolha dum <em>yield</em> adequado no exemplo abaixo:</p>
+<p>Dois investidores começam a montar sua aposentadoria personalizada, ambos com inicialmente <span class="math inline">\(R\$ \text{ 5000}\)</span> e depositam mensalmente <span class="math inline">\(R\$ \text{ 500}\)</span>, reinvestem todo o valor com a mesma taxa de juros. Desconsidere o risco de reivestimento (não conseguir investir a mesma taxa de juros).
+<font size = "2"></p>
+<ul>
+<li>Investidor A preferiu pelo investimento com <em>Dividend Yield</em> de 5,0%.</li>
+<li>Investidor B preferiu pelo investimento com <em>Dividend Yield</em> de 6,0%.
+</font></li>
+</ul>
+<p><img src="/post/2021-03-15-listar-fiis_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p>A diferença percentual entre as aposentadorias é aproximadamente de <span class="math inline">\(\frac{721}{578} = 1,24 \to 24\%\)</span>. Perceba que a curva do investidor B se descola do investidor A, e também estamos falando de 143 mil reais de diferença!</p>
+<p>A boa notícia é que na tabela que iremos gerar você irá descobrir que há FIIs que pagam bem mais do que os <em>Dividend Yield</em> apresentados! Removendo aqueles que não estão pagando <em>Dividend Yield</em> por algum motivo em especial, enquanto escrevo esse post, a mediana de <em>Dividend Yield</em> dos FIIs restantes (220 FIIs) é de 6,12%. 🚀</p>
+<p><strong>Valor em caixa:</strong> nosso último parâmetro é para avaliar o espaço de manobra do FII. Perceba que o FII que há recurso financeiro de sobra por muito tempo é sinônimo de ineficiência do gestor, alguns FIIs até consideram não cobrar taxa de performance quando o mesmo acontece.</p>
+<p>Valores que não foram encontrados no site são denotados como <code>NA</code> na tabela.</p>
+</div>
+</div>
+<div id="kairós" class="section level2">
+<h2>Kairós</h2>
+<p><em>Kairós foi na mitologia grega o deus do tempo oportuno, hoje também referido como “medida certa”.</em></p>
+<p>Se você não é usuário da linguagem R e somente quer usar o conteúdo explicado para gerar suas tabelas periodicamente, veja abaixo:</p>
+<ul>
+<li>Como instalar o R + RStudio + MT5 + mt5R.</li>
+<li>Como rodar o código para listar todos os FIIs.</li>
+</ul>
+<p>Pronto! Espero que eu tenha ajudado as suas decisões de investimento! ❤️</p>
+<p>Mas se você quer programar as suas próprias <em>embalagens</em>, continue lendo! Vaaamos! ⛏</p>
+</div>
+<div id="as-ferramentas" class="section level2">
+<h2>As ferramentas</h2>
+<ul>
+<li>R + RStudio</li>
+<li>MT5</li>
+<li>mt5R</li>
+</ul>
+<p>Faremos uso de técnicas de <a href="https://en.wikipedia.org/wiki/Web_scraping">web scrapping</a> nos seguintes sites:</p>
+<ul>
+<li><a href="https://www.statusinvest.com.br/" class="uri">https://www.statusinvest.com.br/</a></li>
+<li><a href="https://www.fundamentus.com.br/" class="uri">https://www.fundamentus.com.br/</a></li>
+</ul>
+<p>Dois excelentes sites que eu recomendo muito!</p>
+<p>Você pode acessar o código R completo que será usado <a href="http://">aqui</a>.</p>
+</div>
+<div id="o-começo" class="section level2">
+<h2>O começo</h2>
+<pre class="r"><code>library(mt5R)
+library(stringr) ## Pacote muito bom para processar strings
+
+## Pegaremos o Ticker de todos os ativos negociaveis na B3
+sTodosTickers = MT5.AllSymbols() 
+
+## Queremos somente aqueles que possuam &#39;11&#39; no nome 
+sTodosTickers = sTodosTickers[str_detect(sTodosTickers, &quot;11&quot;)] 
+
+## Podem vir opções junto, tiramos pelo tamanho do nome
+sTodosTickers = sTodosTickers[str_length(sTodosTickers) &gt;= 5 &amp; str_length(sTodosTickers) &lt;= 6] </code></pre>
+<p>Vamos dar uma espiada nos tickers candidatos, que provavelmente são FIIs.</p>
+<pre class="r"><code>head(sTodosTickers)
+## [1] &quot;ABCP11&quot; &quot;ALUP11&quot; &quot;BBAS11&quot; &quot;BBPO11&quot; &quot;BBRC11&quot; &quot;BDRX11&quot;
+
+length(sTodosTickers)
+## [1] 361</code></pre>
+<p>Percebam que há outros ativos que não FIIs que também foram contemplados, percebam no <strong>BBAS11</strong> acima. Em seguida temos a quantidade dos nossos candidatos usando <code>length(sTodosTickers)</code>.</p>
+<p>Iremos de <em>ticker</em> em <em>ticker</em> com ajuda da página <a href="https://www.statusinvest.com.br/">statusinvest</a> para saber se o mesmo é um FII. Caso a página retorne que o <em>ticker</em> informado não foi encontrado o retiraremos da lista.</p>
+<p>Veja <a href="https://statusinvest.com.br/fundos-imobiliarios/paginanaoencontrou">aqui</a> a página do <a href="https://www.statusinvest.com.br/">statusinvest</a> quando o FII não é encontrado.</p>
+<pre class="r"><code>## Criaremos um vetor para armazenar se é realmente FII
+bQuaisSaoFII = rep(TRUE, length.out = length(sTodosTickers))
+
+for(i in 1:length(sTodosTickers))
+{
+  ## Iremos de nome em nome
+  sAtivo = sTodosTickers[i]
+  
+  ## Colocaremos tudo em minúscula para inserir na url
+  sAtivo = str_to_lower(sAtivo)
+  
+  scrape_url &lt;- paste0(&quot;https://statusinvest.com.br/fundos-imobiliarios/&quot;, sAtivo)
+  flat_html &lt;- base::readLines(con = scrape_url, encoding=&quot;UTF-8&quot;)
+  
+  ## Verificar se realmente é FII
+  if(any(str_detect(flat_html, &quot;o encontramos o que vo&quot;) == T))
+  {
+    ## Se o statusinvest.com.br informar que não encontrou o ticker
+    bQuaisSaoFII[i] = FALSE
+  }else
+  {
+    ## Caso contrário, é FII!
+    bQuaisSaoFII[i] = TRUE
+  }
+}</code></pre>
+<p>Vamos dar uma espiada nos <em>tickers</em> que sobraram.</p>
+<pre class="r"><code>## Filtrar aqueles que verdadeiramente são FIIs
+sTodosOsFIIs = sTodosTickers[bQuaisSaoFII]
+
+head(sTodosOsFIIs)
+## [1] &quot;ABCP11&quot; &quot;BBPO11&quot; &quot;BBRC11&quot; &quot;BMII11&quot; &quot;BNFS11&quot; &quot;BPFF11&quot;
+
+length(sTodosOsFIIs)
+## [1] 261</code></pre>
+<p>A primeira parte foi realizada com sucesso! Temos agora o <em>ticker</em> de todos os FIIs disponíveis!</p>
+<p>Qual</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>Dividend Yield</em> em sua definição é sempre em janela anual (12M), <em>Dividend Yield (1M)</em> é criação do autor.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><span class="math inline">\(\text{P/VP} = \frac{\text{Valor da cota}}{\text{Valor patrimonial}}\)</span><a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Sobrestimado. Não possui tanto valor como é normalmente divulgado.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
