@@ -11,7 +11,7 @@ Cada vez mais o mundo de finanças está sendo dominado por máquinas. O `mt5R` 
 
 <center>
 
-![](/images/todoslogos.png){width=400px}
+![](../img/todoslogos.png){width=400px}
 </center>
 
 # Site
@@ -32,9 +32,9 @@ A virada se tornou realidade quando encontrei o pacote do JC: [Socket library fo
 
 Me aventurei brevemente nas plataformas voltadas para o mercado brasilerio de ações, enquanto eu desenvolvia o `mt5R`. A parte de automação de estratégias nas plataformas era extremamente ineficiente e confusa - era assustador. A palavra que define foi "decepção". O `mt5R` funcionar como esperado nos testes trouxe um grande alívio.
 
-A migração para *socket* e MetaTrader 5 foi custosa mas valeu a pena, era um tremendo *edge* acima dos outros investidores: eu tinha acesso em tempo-real para os meus modelos e histórico de preço dos ativos da corretora. Podia acompanhar a quantidade que eu quisesse de ações, fazer *grid* de todas as opções, calcular volatilidade implícita, acessar o *book* de ofertas, acompanhar mercado externo com outras *features* do R e acima de tudo, dava para lançar, modificar e excluir ordens. **Tudo em tempo real**. Um mundo se abriu!
+A migração para *socket* e MetaTrader 5 foi custosa mas valeu a pena, era um tremendo *edge* acima dos outros investidores: eu tinha acesso em tempo-real para os meus modelos e histórico de preço dos ativos da corretora. Podia acompanhar a quantidade que eu quisesse de ações, fazer *grid* de todas as opções, acessar o *book* de ofertas, acompanhar mercado externo com outras *features* do R e acima de tudo, eu tinha acesso para para lançar, modificar e excluir ordens. **Tudo em tempo real**. Um mundo se abriu!
 
-E por que disponibilizá-lo? Muito do que hoje aprendi foram de pessoas anônimas, eu tive o prazer de dividir espaço com pessoas talentosíssimas no *MicroMasters* do MIT e o `mt5R` é uma das minhas formas de se doar ao mundo. Todos os códigos-fontes estão disponíveis e todo esse processo descrito acima, eu espero que menos pessoas tenham que cruzá-lo. Use-o com sabedoria e bons negócios!
+E por que disponibilizá-lo? Muito do que hoje aprendi foram de pessoas anônimas ao redor do mundo. Eu tive o prazer de dividir espaço com pessoas talentosíssimas no *MicroMasters* do MIT e o `mt5R` é uma das minhas formas de se doar ao mundo. Um produto que não poderia ser de um só. Todos os códigos-fontes estão disponíveis e todo esse caminho descrito acima, eu espero que menos pessoas tenham que cruzá-lo. Use-o com sabedoria e bons negócios!
 
 
 [^1]: https://www.elsevier.com/books/algorithmic-trading-methods/kissell/978-0-12-815630-8

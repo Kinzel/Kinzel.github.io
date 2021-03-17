@@ -9,7 +9,7 @@ Me chamo Guilherme Kinzel, moro no Rio de Janeiro/Brasil.
 
 Sou formado em Engenharia pela PUC-Rio desde 2015 e atuo no mercado financeiro desde 2009. Possuo as certificações brasileiras pela Anbima: [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) desde 2014 e [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) desde 2020.
 
-Sou meio-maratonista, e meu meu melhor tempo foi de 2h e 22 minutos para 21km! Já terminei a São Silvestre também. Curto rock e eletrônico. Gremista não praticante. Meu escritor favorito é Bernard Cornwell e não possuo uma série favorita.
+Sou meio-maratonista, e meu meu melhor tempo foi de 2h e 24 minutos para 21km! Já terminei a São Silvestre também. Curto rock e eletrônico. Gremista não praticante. Meu escritor favorito é Bernard Cornwell e não possuo uma série favorita.
 
 ## Profissional
 
@@ -27,7 +27,7 @@ Na faculdade eu sempre estive atrás, paralelamente, de artigos que fossem me de
 
 ## MIT
 
-Participei do primeiro bloco de alunos do [MicroMasters](https://micromasters.mit.edu/) Statistics and Data Science do MIT (*Massachusetts Institute of Technology*), onde me destaquei com 96% na cadeira de *Machine Learning with Python: from Linear Models to Deep Learning*. Onde também deixei minha colaboração com presença atuante no tira-dúvidas em auxílio dos monitores e códigos gráficos para facilitar entendimento de rotinas como Perceptron, Kernel RGF, PCA e outros, em todos os cursos, inclusive nos de estatística (86%) e probabilidade (89%).
+Participei do primeiro bloco de alunos do [MicroMasters](https://micromasters.mit.edu/) Statistics and Data Science do MIT (*Massachusetts Institute of Technology*), onde me destaquei com 96% na cadeira de *Machine Learning with Python: from Linear Models to Deep Learning*. Difundi a minha colaboração com presença atuante no tira-dúvidas em auxílio dos monitores e códigos gráficos para facilitar entendimento de rotinas como Perceptron, Kernel RGF, PCA e outros, em todos os cursos, inclusive nos de estatística (86%) e probabilidade (89%).
 
 ## mt5R
 

@@ -15,3 +15,17 @@ blogdown::serve_site()
 
 
 rmarkdown::render("2021-03-15-listar-fiis.Rmd",encoding="UTF-8")
+
+
+# git init
+# git add .
+# git commit -m "first commit"
+# git branch -M master
+# git remote add origin https://github.com/Kinzel/Kinzel.github.io.git
+# git push -u origin master
+
+## Apenas para mandar pro GitHub
+# git init
+# git add .
+# git commit -m "first commit"
+# git push -u origin master
