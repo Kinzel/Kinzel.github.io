@@ -29,3 +29,5 @@ rmarkdown::render("2021-03-15-listar-fiis.Rmd",encoding="UTF-8")
 # git add .
 # git commit -m "first commit"
 # git push -u origin master
+
+# git submodule add -b master git@github.com:Kinzel/Kinzel.github.io.git public
