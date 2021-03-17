@@ -1,0 +1,11 @@
+# History and data files
+.Rhistory
+.Rapp.history
+.RData
+
+# RStudio files
+.Rproj.user/
+
+# R package build/check
+*.tar.gz
+*.Rcheck/

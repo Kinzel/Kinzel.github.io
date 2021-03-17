@@ -8,7 +8,6 @@ enableEmoji = true
 enableRobotsTXT = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$"]
 
-
 # Enable Disqus
 #disqusShortname = ""
 
@@ -25,6 +24,7 @@ title = "Guilherme Kinzel"
 author = "Guilherme Kinzel"
 #copyright = "2020-2021"
 description = "I'm GK!"
+publishDir = "docs"
 profilePicture = "images/profile.jpg"
 keywords = ""
 favicon = "favicons/"

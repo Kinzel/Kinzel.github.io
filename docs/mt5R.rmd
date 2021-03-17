@@ -9,10 +9,7 @@ output:
 
 Cada vez mais o mundo de finanças está sendo dominado por máquinas. O `mt5R` torna realidade uma poderosa mistura de uma máquina estatística (R) com outra máquina de *trading* (MT5) para você automatizar as suas operações ou fazer *download* de dados.
 
-<center>
 
-![](/img/todoslogos.png){width=400px}
-</center>
 
 # Site
 
