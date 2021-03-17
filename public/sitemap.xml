@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://kinzel.github.io/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://kinzel.github.io/categories/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/fii/</loc>
+    <loc>https://kinzel.github.io/tags/fii/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/post/2021-03-15-listar-fiis/</loc>
+    <loc>https://kinzel.github.io/post/2021-03-15-listar-fiis/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/post/</loc>
+    <loc>https://kinzel.github.io/post/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/r/</loc>
+    <loc>https://kinzel.github.io/tags/r/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/categories/r/</loc>
+    <loc>https://kinzel.github.io/categories/r/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://kinzel.github.io/tags/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/tags/web-scrapping/</loc>
+    <loc>https://kinzel.github.io/tags/web-scrapping/</loc>
     <lastmod>2021-03-15T21:13:14-05:00</lastmod>
   </url><url>
-    <loc>https://example.com/about/</loc>
+    <loc>https://kinzel.github.io/about/</loc>
     <lastmod>2016-05-05T21:48:51-07:00</lastmod>
   </url><url>
-    <loc>https://example.com/mt5r/</loc>
+    <loc>https://kinzel.github.io/mt5r/</loc>
     <lastmod>2016-05-05T21:48:51-07:00</lastmod>
   </url>
 </urlset>
