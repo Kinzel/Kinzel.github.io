@@ -1,0 +1,40 @@
+---
+date: "2016-05-05T21:48:51-07:00"
+title: mt5R
+output: 
+  html_document
+---
+
+> "Um estudo de 2019 mostrou que aproximadamente 92% das operações em Forex são feitas por algoritmos em vez de humanos" [^1]
+
+Cada vez mais o mundo de finanças está sendo dominado por máquinas. O `mt5R` torna realidade uma poderosa mistura de uma máquina estatística (R) com outra máquina de *trading* (MT5) para você automatizar as suas operações ou fazer *download* de dados.
+
+<center>
+
+![](../img/todoslogos.png){width=400px}
+</center>
+
+# Site
+
+Acesse o site do mt5R [aqui](https://kinzel.github.io/mt5R/).
+
+# Instalação
+
+Vídeo de X minutos, explicando todo o processo de instalação [aqui](linkdovideo).
+
+# Origem
+
+Desde meados de 2018 eu já vinha trabalhando com automatização de *trading* e obtenção de dados, que na época era no MetaTrader 4. A comunicação era inadequada, usando arquivos de texto, mas era o suficiente na época.
+
+As limitações começaram a ficar muito evidentes meses após o uso das primeiras versões, principalmente quando se tratava de troca de informações muito rápidas, e logo me engajei de uma forma de torná-lo mais eficiente. Já havia feito experiências com TCP/UDP em VPS que eu controlava, para conversarem e entender de forma geral em que rotina cada um dos computadores estava. Conexão via *socket* não era novidade e eu sabia que podia explorá-la.
+
+A virada se tornou realidade quando encontrei o pacote do JC: [Socket library for MT4 and MT5](https://www.mql5.com/en/blogs/post/706665).
+
+Me aventurei brevemente nas plataformas voltadas para o mercado brasilerio de ações, enquanto eu desenvolvia o `mt5R`. A parte de automação de estratégias nas plataformas era extremamente ineficiente e confusa - era assustador. A palavra que define foi "decepção". O `mt5R` funcionar como esperado nos testes trouxe um grande alívio.
+
+A migração para *socket* e MetaTrader 5 foi custosa mas valeu a pena, era um tremendo *edge* acima dos outros investidores: eu tinha acesso em tempo-real para os meus modelos e histórico de preço dos ativos da corretora. Podia acompanhar a quantidade que eu quisesse de ações, fazer *grid* de todas as opções, acessar o *book* de ofertas, acompanhar mercado externo com outras *features* do R e acima de tudo, eu tinha acesso para para lançar, modificar e excluir ordens. **Tudo em tempo real**. Um mundo se abriu!
+
+E por que disponibilizá-lo? Muito do que hoje aprendi foram de pessoas anônimas ao redor do mundo. Eu tive o prazer de dividir espaço com pessoas talentosíssimas no *MicroMasters* do MIT e o `mt5R` é uma das minhas formas de se doar ao mundo. Um produto que não poderia ser de um só. Todos os códigos-fontes estão disponíveis e todo esse caminho descrito acima, eu espero que menos pessoas tenham que cruzá-lo. Use-o com sabedoria e bons negócios!
+
+
+[^1]: https://www.elsevier.com/books/algorithmic-trading-methods/kissell/978-0-12-815630-8
