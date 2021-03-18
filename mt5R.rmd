@@ -20,7 +20,9 @@ Acesse o site do mt5R [aqui](https://kinzel.github.io/mt5R/).
 
 # Instalação
 
-Vídeo de X minutos, explicando todo o processo de instalação [aqui](linkdovideo).
+<!-- Vídeo de X minutos, explicando todo o processo de instalação aqui.  -->
+
+*Vídeo em construção. Por favor, acesse o site onde já há instruções* 🚧👷🛠🚧
 
 # Origem
 
