@@ -9,8 +9,12 @@ Me chamo Guilherme Kinzel, moro no Rio de Janeiro/Brasil.
 
 Sou formado em Engenharia pela PUC-Rio desde 2015 e atuo no mercado financeiro desde 2009. Possuo as seguintes certificações brasileiras pela Anbima: 
 
-* [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) desde 2014, destinada aos profissionais que atuam na distribuição de produtos de investimento para clientes dos segmentos varejo alta renda, private, , corporate e investidores institucionais. [^1]
-* [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) desde 2020, obrigatória para quem ocupa cargos com poder de decisão de compra e venda dos ativos financeiros que integram as carteiras desses veículos de investimento. [^2]
+<font size = "2">
+
+* [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) obtida em 2014, destinada aos profissionais que atuam na distribuição de produtos de investimento para clientes dos segmentos varejo alta renda, private, corporate e investidores institucionais. [^1]
+* [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) obtida em 2020, habilita o profissional a atuar com gestão de recursos de terceiros em fundos de investimento de renda fixa, de ações, cambiais e multimercados. [^2]
+
+</font>
 
 Sou meio-maratonista, e meu meu melhor tempo foi de 2h e 24 minutos para 21km! Já terminei a São Silvestre também. Curto rock e eletrônico. Gremista não praticante. Meu escritor favorito é Bernard Cornwell e não possuo uma série favorita.
 
@@ -20,23 +24,21 @@ Meus interesses profissionais são envoltos em: mercado financeiro, estatística
 
 Já trabalhei com *valuation*, elaboração de infomemos, criação de fundo e contato com investidores, numa boutique financeira em Ipanema. Uma empresa com equipe enxuta, onde tive contato diário com os sócios - pessoas de extrema inteligência e carisma.
 
-Hoje trabalho com consultoria e meus próprios modelos de *machine learning* aplicados diretamente no mercado.
-
 ## Acadêmico
 
 Meu trabalho de final de curso: [Trading Quantitativo: Modelagem Via Cadeira Oculta de Markov usando R](https://www.maxwell.vrac.puc-rio.br/colecao.php?strSecao=resultado&nrSeq=28556@1) onde apresentei para uma banca de três professores da área sobre algoritmos de Viterbi, Forward-Backward e problemas canônicos envolvidos.
 
-Na faculdade eu sempre estive atrás, paralelamente, de artigos que fossem me desenvolver no conhecimento em modelar séries temporais. Já desenvolvi por conta própria algoritmos genéticos em C em Ubuntu, decomposição por Wavelet, séries de Taylor e estudos de movimento geométrico Browniano.
+Na faculdade eu sempre estive atrás, paralelamente, de artigos que fossem me desenvolver no conhecimento em modelar séries temporais. Já desenvolvi por conta própria algoritmos genéticos em C em Ubuntu, decomposição por *Wavelet* e estudos de movimento geométrico Browniano.
 
-## MIT
+## Massachusetts Institute of Technology
 
-Participei do primeiro bloco de alunos do [MicroMasters](https://micromasters.mit.edu/) Statistics and Data Science do MIT (*Massachusetts Institute of Technology*), onde me destaquei com 96% na cadeira de *Machine Learning with Python: from Linear Models to Deep Learning*. Difundi a minha colaboração com presença atuante no tira-dúvidas em auxílio dos monitores e códigos gráficos para facilitar entendimento de rotinas como Perceptron, Kernel RGF, PCA e outros, em todos os cursos, inclusive nos de estatística (86%) e probabilidade (89%).
+Participei do primeiro bloco de alunos do [MicroMasters](https://micromasters.mit.edu/) Statistics and Data Science do MIT (*Massachusetts Institute of Technology*), onde me destaquei com 96% na cadeira de *Machine Learning with Python: from Linear Models to Deep Learning*. Difundi a minha colaboração com presença atuante no tira-dúvidas em auxílio dos monitores, disposição de soluções e rotinas gráficas para facilitar entendimento de algoritmo como de Perceptron, Kernel RGF, PCA e outros, em todos os cursos, inclusive nos de estatística (86%) e probabilidade (89%).
 
 ## mt5R
 
 [mt5R](https://kinzel.github.io/mt5R/) é um pacote em linguagem R desenvolvido por mim e feito para toda comunidade financeira ao redor do mundo. Torna realidade a integração entre R e uma das plataformas de *trading* mais utilizadas mundialmente, o MetaTrader 5 (MT5). 
 
-Clique [aqui](linkparaomt5Rnosite) para saber mais.
+Clique [aqui](https://kinzel.github.io/mt5r/) para saber mais.
 
 ## Programação
 
