@@ -30,4 +30,6 @@ rmarkdown::render("2021-03-15-listar-fiis.Rmd",encoding="UTF-8")
 # git commit -m "first commit"
 # git push -u origin master
 
-# git submodule add -b master git@github.com:Kinzel/Kinzel.github.io.git public
+## Como fiz isso rodar
+# Você precisa fazer o "gh-pages.yml" como está já salvo aqui
+# e criar o .gitmodules com os detalhes já inseridos nele

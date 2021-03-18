@@ -1,7 +1,7 @@
 ---
 title: "Listar FIIs como um supermercado"
 author: "Guilherme Kinzel"
-date: 2021-03-15T21:13:14-05:00
+date: 2021-03-27T21:13:14-05:00
 categories: ["R"]
 tags: ["FII", "R", "Web scrapping"]
 ---
@@ -33,8 +33,6 @@ Aqui neste post do blog *I'm GK!* eu ajudarei você a fazer uma lista completa d
 *Este é o primeiro post da série aposentadoria personalizada.*
 
 ## Introdução
-
-É possível se aposentar protegido da inflação e ganhar, em valores atuais, mais de R$ 15 mil por mês daqui 35 anos? Eu vou lhe dar as ferramentas, e você quem me dirá se é fácil ou difícil! Uma coisa você certamente saberá no final da série *aposentadoria personalizada*: **como fazer**.
 
 Nesse post eu mostrarei e ensinarei fazer uma tabela de FIIs para você tomar as melhores decisões de investimento para formação de renda futura. Abaixo uma imagem exemplo de como ficará a nossa tabela com os indicadores escolhidos!
 

@@ -7,7 +7,10 @@ output:
 
 Me chamo Guilherme Kinzel, moro no Rio de Janeiro/Brasil.
 
-Sou formado em Engenharia pela PUC-Rio desde 2015 e atuo no mercado financeiro desde 2009. Possuo as certificações brasileiras pela Anbima: [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) desde 2014 e [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) desde 2020.
+Sou formado em Engenharia pela PUC-Rio desde 2015 e atuo no mercado financeiro desde 2009. Possuo as seguintes certificações brasileiras pela Anbima: 
+
+* [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) desde 2014, destinada aos profissionais que atuam na distribuição de produtos de investimento para clientes dos segmentos varejo alta renda, private, , corporate e investidores institucionais. [^1]
+* [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) desde 2020, obrigatória para quem ocupa cargos com poder de decisão de compra e venda dos ativos financeiros que integram as carteiras desses veículos de investimento. [^2]
 
 Sou meio-maratonista, e meu meu melhor tempo foi de 2h e 24 minutos para 21km! Já terminei a São Silvestre também. Curto rock e eletrônico. Gremista não praticante. Meu escritor favorito é Bernard Cornwell e não possuo uma série favorita.
 
@@ -59,3 +62,5 @@ A grande maioria dos posts do *"I'm GK"* serão em português, entretanto, aquel
 
 Meus amigos e conhecidos no exterior não conseguem pronunciar o meu nome, então me apresento como "GK". Pois é!
 
+[^1]: [Site Anbima sobre o CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm)
+[^2]: [Site da Anbima sobre o CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm)

@@ -1,7 +1,7 @@
 ---
 title: "Listar FIIs como um supermercado"
 author: "Guilherme Kinzel"
-date: 2021-03-15T21:13:14-05:00
+date: 2021-03-27T21:13:14-05:00
 categories: ["R"]
 tags: ["FII", "R", "Web scrapping"]
 ---
@@ -22,7 +22,6 @@ tags: ["FII", "R", "Web scrapping"]
 <p><em>Este é o primeiro post da série aposentadoria personalizada.</em></p>
 <div id="introdução" class="section level2">
 <h2>Introdução</h2>
-<p>É possível se aposentar protegido da inflação e ganhar, em valores atuais, mais de R$ 15 mil por mês daqui 35 anos? Eu vou lhe dar as ferramentas, e você quem me dirá se é fácil ou difícil! Uma coisa você certamente saberá no final da série <em>aposentadoria personalizada</em>: <strong>como fazer</strong>.</p>
 <p>Nesse post eu mostrarei e ensinarei fazer uma tabela de FIIs para você tomar as melhores decisões de investimento para formação de renda futura. Abaixo uma imagem exemplo de como ficará a nossa tabela com os indicadores escolhidos!</p>
 <center>
 <p><img src="/images/tabelafiiex.png" width="400" /></p>
@@ -68,10 +67,10 @@ tags: ["FII", "R", "Web scrapping"]
 <li>Investidor B preferiu pelo investimento com <em>Dividend Yield</em> de 6,0%.
 </font></li>
 </ul>
-<p><img src="/post/2021-03-15-listar-fiis_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
+<p><img src="/post/2021-03-27-listar-fiis_files/figure-html/unnamed-chunk-1-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>A diferença percentual entre as aposentadorias é aproximadamente de <span class="math inline">\(\frac{721}{578} = 1,24 \to 24\%\)</span>. Perceba que a curva do investidor B se descola do investidor A, e também estamos falando de 143 mil reais de diferença!</p>
 <p>A boa notícia é que na tabela que iremos gerar você irá descobrir que há FIIs que pagam bem mais do que os <em>Dividend Yield</em> apresentados! Removendo aqueles que não estão pagando <em>Dividend Yield</em> por algum motivo em especial, enquanto escrevo esse post, a mediana de <em>Dividend Yield</em> dos FIIs restantes (220 FIIs) é de 6,12%. 🚀</p>
-<p><strong>Valor em caixa:</strong> nosso último parâmetro é para avaliar o espaço de manobra do FII. Perceba que o FII que há recurso financeiro de sobra por muito tempo é sinônimo de ineficiência do gestor, alguns FIIs até consideram não cobrar taxa de performance quando o mesmo acontece.</p>
+<p><strong>Valor em caixa:</strong> nosso último parâmetro é para avaliar o espaço de manobra do FII. Perceba que o FII que há recurso financeiro de sobra por muito tempo é sinônimo de ineficiência do gestor, alguns FIIs até consideram não cobrar taxa de performance quando o cenário ocorre.</p>
 <p>Valores que não foram encontrados no site são denotados como <code>NA</code> na tabela.</p>
 </div>
 </div>
@@ -84,7 +83,7 @@ tags: ["FII", "R", "Web scrapping"]
 <li>Como rodar o código para listar todos os FIIs.</li>
 </ul>
 <p>Pronto! Espero que eu tenha ajudado as suas decisões de investimento! ❤️</p>
-<p>Mas se você quer programar as suas próprias <em>embalagens</em>, continue lendo! Vaaamos! ⛏</p>
+<p>Mas se você quer programar as suas próprias <em>embalagens</em>, continue lendo! Vaamos! ⛏</p>
 </div>
 <div id="as-ferramentas" class="section level2">
 <h2>As ferramentas</h2>

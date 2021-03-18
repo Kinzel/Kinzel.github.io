@@ -9,3 +9,6 @@
 # R package build/check
 *.tar.gz
 *.Rcheck/
+
+## Deixar alguns posts escondidos
+*.zip
