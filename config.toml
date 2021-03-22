@@ -8,6 +8,7 @@ enableEmoji = true
 enableRobotsTXT = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_cache$", "\\.knit\\.md$", "\\.utf8\\.md$", "\\.zip$"]
 
+
 # Enable Disqus
 #disqusShortname = ""
 
