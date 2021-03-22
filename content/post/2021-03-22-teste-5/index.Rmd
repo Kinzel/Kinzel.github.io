@@ -1,0 +1,161 @@
+---
+title: Teste 5
+author: Guilherme Kinzel
+date: '2021-03-22'
+slug: []
+categories: []
+tags: []
+Description: ''
+Tags: []
+Categories: []
+DisableComments: no
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 2,
+                      fig.align = 'center',
+                      comment = "#>")
+library(emo)
+options(width = 180)
+load("C:/Users/GKIN/Desktop/Blog/SuporteTempo.RData")
+```
+
+*Já se imaginou dentro de um supermercado de FIIs?*
+
+Página ainda em construção. Ainda não divulgada. 🚧👷🛠🚧
+
+<center>
+![](/images/supermarket.jpg){width=250px}
+</center>
+<style type="text/css">
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 20px;
+}
+pre {
+  font-size: 13px
+}
+</style>
+Passeando pelos corredores do setor de Logística, há nas prataleiras: 
+
++ **FII A** com 5,0% *Dividend Yield* e 20% do caixa disponível e;
++ **FII B** com 6,0% *Dividend Yield* e 1% do caixa disponível. 
+
+Perceba que ao analisar a embalagem você facilmente pode mudar de opinião de qual produto levar para casa.
+
+Aqui neste post do blog *I'm GK!* eu ajudarei você a fazer uma lista completa de todos os FIIs negociáveis na Bovespa, e quem escolhe as informações da embalagem é você!
+
+## Introdução
+
+Eu lembro que após terminada a leitura do livro do Marcelo Fayh sobre FIIs eu pensei: *certo, agora como vou achá-los?* A principal vantagem de quando elaborei a tabela pela primeira vez foi ter em mãos a lista de todos os FIIs negociáveis, porque eu pensava: procurando no YouTube ou em sites especializados eu sei da existência FII A, B, C - mas serão todos? Eu quero saber de todos!
+
+E se existir um FII que estivesse fazendo uma diferença para você, mas você não está vendo-o?
+
+Mas com o motor do `R` para nos auxiliar, não nos contentaremos somente com a lista de todos os FIIs negociáveis. Vamos para os indicadores deles também! Vamos montar nosso supermercado de FIIs! Veja abaixo:
+
+<center>
+![](/images/tabelafiiexformt.png){width=400px}
+
+<font size = "1">Aperte na imagem para aproximar</font>
+</center>
+
+Você pode visualizar a tabela completa [aqui](https://github.com/Kinzel/Kinzel.github.io/raw/master/content/files/tabela_fiis.xlsx).
+
+**Embalagem dos FIIs**
+
+No nosso supermercado de FIIs somos nós que escolhemos as embalagens! Escolheremos os indicadores abaixo:
+
+<font size = "2">
+
+1. Ticker
+2. Nome
+3. Setor
+4. Administrador
+5. Cotação
+6. MM200Delta[^1]
+7. Volume médio diário (em milhões)
+8. *Dividend Yield* 
+9. P/VP
+10. Valor em caixa
+11. Payback (anos)
+
+</font>
+
+*MM200Delta:* medir o quanto a cota está "espichada" para cima ou para baixo. É usado média móvel de 200 períodos. Quanto maior o indicador, mais a cota subiu recentemente. Usaremos metodologia análoga ao JdK RS-Momentum usado no [Relative Rotation Graphs (RRG)](https://www.relativerotationgraphs.com/). Quanto menor, melhor.
+
+*Payback (anos):* payback em anos de quanto você recuperaria o valor do valor da cota com os rendimentos do FII adquirido. Medida simplista, não é medido com reinvestimento e é dado como premissa que o *dividend yield* é constante durante o período. Quanto menor, melhor.
+
+## Kairós
+
+*Kairós foi na mitologia grega o deus do tempo oportuno, hoje também referido como "medida certa".* 
+
+Nós iniciaremos nosso caminho pela programação `R`, mas se você não é usuário da linguagem e somente quer usar o conteúdo demonstrado no artigo para gerar as suas tabelas periodicamente, veja abaixo:
+
+* Veja este vídeo [aqui]() para instalar o R + RStudio + MT5 + mt5R. (7min) ##TODO
+* Veja este vídeo [aqui]() de X minutos para rodar o código sem saber de `R`. (4min) ##TODO
+
+Pronto! Espero que eu tenha ajudado as suas decisões de investimento! ❤️
+
+Mas se você quer programar as suas próprias *embalagens*, continue lendo! ⛏ 
+
+## As ferramentas
+
+* R + RStudio
+* MT5
+* mt5R (0.1.5 ou superior)
+
+Faremos uso de técnicas de [web scrapping](https://en.wikipedia.org/wiki/Web_scraping) nos seguintes sites:
+
+* https://www.statusinvest.com.br/
+* https://www.clubefii.com.br/
+
+Dois excelentes sites que eu recomendo muito! 
+
+Você pode acessar o código `R` completo que será usado [aqui](https://raw.githubusercontent.com/Kinzel/Kinzel.github.io/master/content/files/SupermercadoFIIs.R).
+
+## O começo
+
+O nosso *pipeline* está resumidamente abaixo. A ferramenta e a informação que iremos obter.
+
+1. mt5R: *ticker*
+2. Web scraping: verificar quem é FII pelo *statusinvest*
+3. Web scraping: setor, administrador, DY12m, P/VP e valor em caixa pelo *statusinvest*
+4. mt5R: cotação, MM200Delta e Volume
+5. Web scrapping: nome do FII pelo *clubefii*
+
+Vamos começar! Carregaremos os pacotes que serão usados.
+
+```{r echo=T, message=FALSE, warning=FALSE, results='hide'}
+library(mt5R)
+library(stringr) 
+library(dplyr)
+```
+
+Verificamos se o mt5R está no MT5:
+
+```{r}
+MT5.Ping()
+```
+
+### 1. mt5R: ticker
+
+Aqui iremos somente extrair os *tickers* candidatos (possivelmente FIIs) do MetaTrader 5, usando `MT5.AllSymbols()`.
+
+```{r echo=T, message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+## Pegaremos o Ticker de todos os ativos negociaveis na B3
+sTodosTickers = MT5.AllSymbols() 
+
+## Queremos somente aqueles que possuam '11' no nome 
+sTodosTickers = sTodosTickers[str_detect(sTodosTickers, "11")] 
+
+## Podem vir opções junto, tiramos pelo tamanho do nome
+sTodosTickers = sTodosTickers[str_length(sTodosTickers) >= 5 & str_length(sTodosTickers) <= 6] 
+```
+
+Vamos dar uma espiada nos *tickers* candidatos que provavelmente são FIIs.
