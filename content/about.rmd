@@ -11,7 +11,7 @@ Sou formado em Engenharia pela PUC-Rio desde 2015 e atuo no mercado financeiro d
 
 <font size = "2">
 
-* [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) obtida em 2014, destinada aos profissionais que atuam na distribuição de produtos de investimento para clientes dos segmentos varejo alta renda, private, corporate e investidores institucionais. [^1]
+* [CPA-20](https://www.anbima.com.br/pt_br/educar/certificacoes/cpa-20.htm) obtida ainda durante a faculdade, destinada aos profissionais que atuam na distribuição de produtos de investimento para clientes dos segmentos varejo alta renda, private, corporate e investidores institucionais. [^1]
 * [CGA](https://www.anbima.com.br/pt_br/educar/certificacoes/cga.htm) obtida em 2020, habilita o profissional a atuar com gestão de recursos de terceiros em fundos de investimento de renda fixa, de ações, cambiais e multimercados. [^2]
 
 </font>
@@ -48,11 +48,11 @@ Meu interesse de programação começou quando criança, quando jogava um jogo c
 
 Aqui neste espaço eu espero poder ajudar o máximo possível com o conhecimento que adquiri com os anos, tanto como técnica, tanto como opinião pessoal. Com exceção dos ativos em que conversamos, que possuem preços, as informações e ferramentas aqui são todas de graça.
 
-* R é de graça ✔️
-* RStudo é de graça ✔️
-* MT5 é de graça ✔️
-* mt5R é de graça ✔️
-* Blog *"I'm GK"* é de graça ✔️
+* ✔️️ R é de graça
+* ✔️ RStudo é de graça
+* ✔️ MT5 é de graça 
+* ✔️ mt5R é de graça
+* ✔️ Blog *"I'm GK"* é de graça
 
 Vamos juntos extrair o máximo de informação de qualidade para que você poder fazer as decisões acertadas. 
 
