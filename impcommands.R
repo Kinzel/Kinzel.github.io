@@ -6,13 +6,14 @@ blogdown::hugo_version()
 
 # remotes::install_github('rstudio/blogdown')
 
-blogdown::new_post("Listar FIIs como um supermercado", ext = '.Rmd')
+blogdown::new_post("Listar FIIs", ext = '.Rmd')
 
 
 blogdown::build_site()
 blogdown::serve_site()
 # blogdown::stop_server()
 
+blogdown::hugo_cmd("--cleanDestinationDir")
 
 rmarkdown::render("2021-03-15-listar-fiis.Rmd",encoding="UTF-8")
 
@@ -31,5 +32,5 @@ rmarkdown::render("2021-03-15-listar-fiis.Rmd",encoding="UTF-8")
 # git push -u origin master
 
 ## Como fiz isso rodar
-# Você precisa fazer o "gh-pages.yml" como está já salvo aqui
-# e criar o .gitmodules com os detalhes já inseridos nele
+# Você precisa fazer o "gh-pages.yml" como está já salvo aqui no .github > workflow
+# e criar o .gitmodules com os detalhes já inseridos nele na pasta principal
