@@ -2,6 +2,7 @@
 .Rhistory
 .Rapp.history
 .RData
+.Rproj
 
 # RStudio files
 .Rproj.user/

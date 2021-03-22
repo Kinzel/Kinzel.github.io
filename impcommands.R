@@ -6,7 +6,7 @@ blogdown::hugo_version()
 
 # remotes::install_github('rstudio/blogdown')
 
-blogdown::new_post("Listar FIIs", ext = '.Rmd')
+blogdown::new_post("Teste", ext = '.Rmd')
 
 
 blogdown::build_site()
