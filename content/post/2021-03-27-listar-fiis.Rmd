@@ -58,7 +58,7 @@ Mas com o motor do `R` para nos auxiliar, não nos contentaremos somente com a l
 <font size = "1">Aperte na imagem para aproximar</font>
 </center>
 
-Você pode visualizar a tabela completa [aqui](http://).
+Você pode visualizar a tabela completa [aqui](https://github.com/Kinzel/Kinzel.github.io/raw/master/content/files/tabela_fiis.xlsx).
 
 **Embalagem dos FIIs**
 
@@ -90,8 +90,8 @@ No nosso supermercado de FIIs somos nós que escolhemos as embalagens! Escolhere
 
 Nós iniciaremos nosso caminho pela programação `R`, mas se você não é usuário da linguagem e somente quer usar o conteúdo demonstrado no artigo para gerar as suas tabelas periodicamente, veja abaixo:
 
-* Veja este vídeo [aqui]() para instalar o R + RStudio + MT5 + mt5R. (7min)
-* Veja este vídeo [aqui]() de X minutos para rodar o código sem saber de `R`. (4min)
+* Veja este vídeo [aqui]() para instalar o R + RStudio + MT5 + mt5R. (7min) ##TODO
+* Veja este vídeo [aqui]() de X minutos para rodar o código sem saber de `R`. (4min) ##TODO
 
 Pronto! Espero que eu tenha ajudado as suas decisões de investimento! ❤️
 
@@ -110,7 +110,7 @@ Faremos uso de técnicas de [web scrapping](https://en.wikipedia.org/wiki/Web_sc
 
 Dois excelentes sites que eu recomendo muito! 
 
-Você pode acessar o código `R` completo que será usado [aqui](http://).
+Você pode acessar o código `R` completo que será usado [aqui](https://raw.githubusercontent.com/Kinzel/Kinzel.github.io/master/content/files/SupermercadoFIIs.R).
 
 ## O começo
 
