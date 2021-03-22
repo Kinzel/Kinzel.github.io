@@ -1,14 +1,563 @@
 ---
-title: Teste 3
-author: Guilherme Kinzel
-date: '2021-03-22'
-slug: []
-categories: []
-tags: []
-Description: ''
-Tags: []
-Categories: []
-DisableComments: no
+title: "Listar FIIs como um supermercado"
+author: "Guilherme Kinzel"
+date: 2021-03-22T21:13:14-05:00
+categories: ["R"]
+tags: ["FII", "R", "Web scrapping"]
 ---
 
-Tenhoeu
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      fig.retina = 2,
+                      fig.align = 'center',
+                      comment = "#>")
+library(emo)
+options(width = 180)
+load("C:/Users/GKIN/Desktop/Blog/SuporteTempo.RData")
+```
+
+*Já se imaginou dentro de um supermercado de FIIs?*
+
+Página ainda em construção. Ainda não divulgada. 🚧👷🛠🚧
+
+<center>
+![](/images/supermarket.jpg){width=250px}
+</center>
+<style type="text/css">
+
+body, td {
+   font-size: 14px;
+}
+code.r{
+  font-size: 20px;
+}
+pre {
+  font-size: 13px
+}
+</style>
+Passeando pelos corredores do setor de Logística, há nas prataleiras: 
+
++ **FII A** com 5,0% *Dividend Yield* e 20% do caixa disponível e;
++ **FII B** com 6,0% *Dividend Yield* e 1% do caixa disponível. 
+
+Perceba que ao analisar a embalagem você facilmente pode mudar de opinião de qual produto levar para casa.
+
+Aqui neste post do blog *I'm GK!* eu ajudarei você a fazer uma lista completa de todos os FIIs negociáveis na Bovespa, e quem escolhe as informações da embalagem é você!
+
+## Introdução
+
+Eu lembro que após terminada a leitura do livro do Marcelo Fayh sobre FIIs eu pensei: *certo, agora como vou achá-los?* A principal vantagem de quando elaborei a tabela pela primeira vez foi ter em mãos a lista de todos os FIIs negociáveis, porque eu pensava: procurando no YouTube ou em sites especializados eu sei da existência FII A, B, C - mas serão todos? Eu quero saber de todos!
+
+E se existir um FII que estivesse fazendo uma diferença para você, mas você não está vendo-o?
+
+Mas com o motor do `R` para nos auxiliar, não nos contentaremos somente com a lista de todos os FIIs negociáveis. Vamos para os indicadores deles também! Vamos montar nosso supermercado de FIIs! Veja abaixo:
+
+<center>
+![](/images/tabelafiiexformt.png){width=400px}
+
+<font size = "1">Aperte na imagem para aproximar</font>
+</center>
+
+Você pode visualizar a tabela completa [aqui](https://github.com/Kinzel/Kinzel.github.io/raw/master/content/files/tabela_fiis.xlsx).
+
+**Embalagem dos FIIs**
+
+No nosso supermercado de FIIs somos nós que escolhemos as embalagens! Escolheremos os indicadores abaixo:
+
+<font size = "2">
+
+1. Ticker
+2. Nome
+3. Setor
+4. Administrador
+5. Cotação
+6. MM200Delta[^1]
+7. Volume médio diário (em milhões)
+8. *Dividend Yield* 
+9. P/VP
+10. Valor em caixa
+11. Payback (anos)
+
+</font>
+
+*MM200Delta:* medir o quanto a cota está "espichada" para cima ou para baixo. É usado média móvel de 200 períodos. Quanto maior o indicador, mais a cota subiu recentemente. Usaremos metodologia análoga ao JdK RS-Momentum usado no [Relative Rotation Graphs (RRG)](https://www.relativerotationgraphs.com/). Quanto menor, melhor.
+
+*Payback (anos):* payback em anos de quanto você recuperaria o valor do valor da cota com os rendimentos do FII adquirido. Medida simplista, não é medido com reinvestimento e é dado como premissa que o *dividend yield* é constante durante o período. Quanto menor, melhor.
+
+## Kairós
+
+*Kairós foi na mitologia grega o deus do tempo oportuno, hoje também referido como "medida certa".* 
+
+Nós iniciaremos nosso caminho pela programação `R`, mas se você não é usuário da linguagem e somente quer usar o conteúdo demonstrado no artigo para gerar as suas tabelas periodicamente, veja abaixo:
+
+* Veja este vídeo [aqui]() para instalar o R + RStudio + MT5 + mt5R. (7min) ##TODO
+* Veja este vídeo [aqui]() de X minutos para rodar o código sem saber de `R`. (4min) ##TODO
+
+Pronto! Espero que eu tenha ajudado as suas decisões de investimento! ❤️
+
+Mas se você quer programar as suas próprias *embalagens*, continue lendo! ⛏ 
+
+## As ferramentas
+
+* R + RStudio
+* MT5
+* mt5R (0.1.5 ou superior)
+
+Faremos uso de técnicas de [web scrapping](https://en.wikipedia.org/wiki/Web_scraping) nos seguintes sites:
+
+* https://www.statusinvest.com.br/
+* https://www.clubefii.com.br/
+
+Dois excelentes sites que eu recomendo muito! 
+
+Você pode acessar o código `R` completo que será usado [aqui](https://raw.githubusercontent.com/Kinzel/Kinzel.github.io/master/content/files/SupermercadoFIIs.R).
+
+## O começo
+
+O nosso *pipeline* está resumidamente abaixo. A ferramenta e a informação que iremos obter.
+
+1. mt5R: *ticker*
+2. Web scraping: verificar quem é FII pelo *statusinvest*
+3. Web scraping: setor, administrador, DY12m, P/VP e valor em caixa pelo *statusinvest*
+4. mt5R: cotação, MM200Delta e Volume
+5. Web scrapping: nome do FII pelo *clubefii*
+
+Vamos começar! Carregaremos os pacotes que serão usados.
+
+```{r echo=T, message=FALSE, warning=FALSE, results='hide'}
+library(mt5R)
+library(stringr) 
+library(dplyr)
+```
+
+Verificamos se o mt5R está no MT5:
+
+```{r}
+MT5.Ping()
+```
+
+### 1. mt5R: ticker
+
+Aqui iremos somente extrair os *tickers* candidatos (possivelmente FIIs) do MetaTrader 5, usando `MT5.AllSymbols()`.
+
+```{r echo=T, message=FALSE, warning=FALSE, results='hide', eval = FALSE}
+## Pegaremos o Ticker de todos os ativos negociaveis na B3
+sTodosTickers = MT5.AllSymbols() 
+
+## Queremos somente aqueles que possuam '11' no nome 
+sTodosTickers = sTodosTickers[str_detect(sTodosTickers, "11")] 
+
+## Podem vir opções junto, tiramos pelo tamanho do nome
+sTodosTickers = sTodosTickers[str_length(sTodosTickers) >= 5 & str_length(sTodosTickers) <= 6] 
+```
+
+Vamos dar uma espiada nos *tickers* candidatos que provavelmente são FIIs.
+
+```{r}
+head(sTodosTickers)
+
+length(sTodosTickers)
+```
+Percebam que há outros ativos que não-FIIs que também foram contemplados, percebam no **BBAS11** (Banco do Brasil) acima. Em seguida temos a quantidade dos nossos candidatos usando `length(sTodosTickers)`.
+
+### 2. Web scraping: verificar quem é FII
+
+Iremos de *ticker* em *ticker* com ajuda da página [statusinvest](https://www.statusinvest.com.br/) para saber quem é FII. Caso a página retorne que o *ticker* informado não foi encontrado o retiraremos da lista. A nossa premissa é que o site saiba quem é FII ou não.
+
+Veja [aqui](https://statusinvest.com.br/fundos-imobiliarios/paginanaoencontrou) a página do [statusinvest](https://www.statusinvest.com.br/) quando o FII não é encontrado.
+
+```{r, eval = F}
+## Criaremos um vetor para armazenar se é realmente FII
+bQuaisSaoFII = rep(TRUE, length.out = length(sTodosTickers))
+
+for(i in 1:length(sTodosTickers))
+{
+  ## Iremos de nome em nome
+  sAtivo = sTodosTickers[i]
+
+  scrape_url = paste0("https://statusinvest.com.br/fundos-imobiliarios/", str_to_lower(sAtivo))
+  flat_html = base::readLines(con = scrape_url, encoding="UTF-8")
+  
+  ## Verificar se realmente é FII
+  if(any(str_detect(flat_html, "o encontramos o que vo") == T))
+  {
+    ## Se o statusinvest.com.br informar que não encontrou o ticker
+    bQuaisSaoFII[i] = FALSE
+  }else
+  {
+    ## Caso contrário, é FII!
+    bQuaisSaoFII[i] = TRUE
+  }
+}
+```
+
+Vamos dar uma espiada nos *tickers* que sobraram.
+
+```{r}
+## Filtrar aqueles que verdadeiramente são FIIs
+sTodosOsFIIs = sTodosTickers[bQuaisSaoFII]
+
+head(sTodosOsFIIs)
+
+length(sTodosOsFIIs)
+```
+
+**Sucesso!** Temos agora os *tickers* de todos os FIIs disponíveis!
+
+### 3. Web scraping: setor, administrador, DY12m, P/VP e valor em caixa
+
+Aqui exploraremos mais profundamente com o *web scrapping*! Funções específicas que serão usadas: `PegarTextoNegrito()` para obter textos que estejam em negrito; e `PegarSetor()` para capturar o setor do FII.
+
+O web scrapping é uma tarefa simples em que você precisa saber um pouco como a página foi estruturada (não é nada complicado, verifique a estrutura do `flat_html`). Perceba que para achar um indicador em específico é obtida a localização do indicador e a localização de todas os textos em negrito, e assim mapear a localização da *string* desejada.
+
+```{r}
+PegarTextoNegrito = function(flat_html, sQualIndicador, iQualNaSequencia = 1)
+{
+  # flat_html: é a página obtida pelo base::readLines
+  # sQualIndicador: qual indicador estamos atrás
+  # iQualNaSequencia: o indicador pode aparecer diversas vezes na pagina. Escolha em qual você está interessado.
+  
+  iOnde_AproxIndicador = which(str_detect(flat_html, regex(sQualIndicador, ignore_case = T)))
+  iOnde_EstaoNegritos = which(str_detect(flat_html, "</strong>"))
+    
+  sTexto = flat_html[iOnde_EstaoNegritos[iOnde_EstaoNegritos > iOnde_AproxIndicador[iQualNaSequencia]][1]]
+
+  iMarcadores = str_locate_all(sTexto, ">")[[1]][,1]
+  iOndeTermina = str_locate_all(sTexto, "</strong>")[[1]][1]
+  iOndeComeca = tail(subset(iMarcadores, iMarcadores < iOndeTermina),1) 
+    
+  sTexto_Quero = str_sub(sTexto, iOndeComeca + 1, iOndeTermina - 1)
+  if(length(sTexto_Quero)<1)sTexto_Quero = NA; ## não achou
+  return(sTexto_Quero)
+}
+```
+
+Capturar o setor na página requer uma outra função separada, por causa da estrutura de texto na página. O conceito é o mesmo usado na função acima, entretanto usaremos o rastreio das barras para nos balizar onde está a *string* do setor.
+
+```{r}
+PegarSetor = function(flat_html)
+{
+  iOnde_AproxIndicador = which(str_detect(flat_html, regex(">Segmento</span>", ignore_case = T)))[1]
+  iOnde_BarraInversa = which(str_detect(flat_html, '\"'))
+
+  sTexto = flat_html[iOnde_BarraInversa[iOnde_BarraInversa > iOnde_AproxIndicador][1]]
+  
+  iOnde_BarraDir = str_locate_all(sTexto, "/")[[1]]
+  
+  ## Procura por aspas
+  iOndeTermina = str_locate_all(sTexto, '"')[[1]][2]
+  iOnde_Comeca = tail(iOnde_BarraDir[iOnde_BarraDir < iOndeTermina],1)
+  
+  sTexto_Quero = str_sub(sTexto, iOnde_Comeca + 1, iOndeTermina - 1)
+  return(sTexto_Quero)
+}
+```
+
+Vamos usar o **XPML11** como exemplo para testarmos as funções acima. Iremos obter o seu P/VP e o setor do FII. Inicialmente baixamos a página do **XPML11** no [statusinvest](https://statusinvest.com.br/fundos-imobiliarios/xpml11).
+
+```{r}
+scrape_url = "https://statusinvest.com.br/fundos-imobiliarios/xpml11"
+flat_html = base::readLines(con = scrape_url, encoding="UTF-8")
+```
+
+Usamos `PegarTextoNegrito()` e `PegarSetor()`.
+
+```{r}
+PVP = PegarTextoNegrito(flat_html, "P/VP")
+print(PVP)
+
+Setor = PegarSetor(flat_html)
+print(Setor)
+```
+
+**Fantástico!** Verificando e estudando a estrutura dos sites disponíveis na internet para se orientar, qualquer informação está a sua disposição no `R`. Você pode fazer o mesmo com outras estruturas de dados, como `pdf`.
+
+Vamos agora pegar os dados de todos os FIIs negociáveis então! Traçaremos um *looping* para percorrer o vetor de *tickers* (`sTodosOsFIIs`) e gravar todas as informações em `df_todos_fiis`.
+
+```{r message=FALSE, warning=FALSE, eval = FALSE}
+## data frame em que iremos colocar todas as informacoes
+df_todos_fiis = data.frame()
+
+for(i in 1:length(sTodosOsFIIs))
+{
+  ## Iremos de ticker em ticker
+  sFII = sTodosOsFIIs[i]
+  
+  scrape_url = paste0("https://statusinvest.com.br/fundos-imobiliarios/", str_to_lower(sFII))
+  flat_html = base::readLines(con = scrape_url, encoding="UTF-8")
+  
+  df_fii = data.frame(Ticker = sFII,
+                      Nome = NA,
+                      Setor = NA,
+                      Adm = NA,
+                      Cotacao = NA,
+                      MM200Delta = NA,
+                      Vol = NA,
+                      DY12m = NA,
+                      P_VP = NA,
+                      VALOR_EM_CAIXA = NA)
+  
+  ### Nome
+  # Deixaremos para outro bloco usando o site clubefii
+  
+  ### Setor
+  # Remover "-" caso tenha na string
+  # Colocar primeira letra maiúscula
+  # Remove espaços no inicio e no final, se atribuível
+  
+  sSetor = PegarSetor(flat_html) %>% str_replace_all(., "-", " ") %>% str_to_title(.) %>% str_trim(.)
+  df_fii$Setor = sSetor
+  
+  ### Administrador
+  # Usar somente as duas primeiras palavras
+  
+  sAdm = PegarTextoNegrito(flat_html, "ADMINISTRADOR") %>% word(., 1,2)
+  df_fii$Adm = sAdm
+  
+  ### Cotacao
+  ### MM200Delta
+  ### Vol
+  
+  # Deixaremos para o próximo bloco, onde voltaremos a usar o MT5R. 
+  
+  ### DY12m
+  # Trocar virgula por ponto para o R entender que é um numérico
+  # Transformar em numerico
+  
+  fDY12 = PegarTextoNegrito(flat_html, "DIVIDEND YIELD") %>% str_replace_all(., "\\,", "\\.") %>% as.numeric(.)
+  df_fii$DY12m = fDY12
+  
+  ### P/VP
+  # Trocar virgula por ponto para o R entender que é um numérico
+  # Transformar em numerico
+  
+  fPVP = PegarTextoNegrito(flat_html, "P/VP") %>% str_replace_all(., "\\,", "\\.") %>% as.numeric(.)
+  df_fii$P_VP = fPVP
+  
+  ### Valor em caixa
+  # Trocar virgula por ponto para o R entender que é um numérico
+  # Transformar em numerico
+  
+  fValorEmCaixa = PegarTextoNegrito(flat_html, "VALOR EM CAIXA") %>% str_replace_all(., "\\,", "\\.") %>% as.numeric(.)
+  df_fii$VALOR_EM_CAIXA = fValorEmCaixa
+  
+  ## Adiciona no data.frame final
+  df_todos_fiis = rbind(df_todos_fiis, df_fii)
+}
+```
+```{r include=FALSE}
+## Poupar tempo na hora de ficar rodando toda vez na hora de criar a pagina
+df_todos_fiis = df_todos_fiis_salvo1
+```
+
+
+Verificamos o `data.frame` o gerado.
+
+```{r}
+head(df_todos_fiis)
+```
+
+A nossa tabela está tomando rosto! Vamos continuar!
+
+### 4. mt5R: cotação, MM200Delta e Volume
+
+Usaremos o `mt5R` para fazer download e calcular as demais métricas que utilizem a cotação e o volume do FII.
+
+```{r, eval=FALSE}
+## Como já temos o df_todos_fiis com todos os tickers, nós agora vamos fazer o looping em cima deste data.frame
+
+for(i in 1:dim(df_todos_fiis)[1])
+{
+  sTicker = df_todos_fiis$Ticker[i]
+  
+  ## Verificamos se ele está no Marketwatch do MT5
+  bEstaMW = MT5.SymbolInMarketwatch(sTicker)
+  
+  if(bEstaMW == FALSE)
+  {
+    MT5.MarketwatchAdd(sTicker)
+    Sys.sleep(0.2) ##Esperamos o MT5 baixar os dados
+  }
+  
+  ## 1440 é o diario e queremos 200 rows para fazer a média móvel de 200
+  Cotacao = MT5.GetSymbol(sTicker, iTF = 1440, iRows = 200)
+  
+  ## Alguns FIIs podem nao ter nenhuma cotacao, como algum muito recente
+  if(!is.null(Cotacao))
+  {
+    ## Cotacao
+    df_todos_fiis$Cotacao[i] = tail(Cotacao$Close, 1)
+    
+    ## Cotacao atual sobre a média móvel de 200 períodos, caso tenha 200 linhas
+    df_todos_fiis$MM200Delta[i] = ifelse(length(Cotacao$Close)<200, NA, tail(Cotacao$Close, 1) / mean(Cotacao$Close))
+    
+    ## Volume medio em 200 dias, em milhoes
+    df_todos_fiis$Vol[i] = mean(Cotacao$Close * Cotacao$Volume) / 1000000
+  }
+  
+  if(bEstaMW == FALSE)
+  {
+    ## Se nao estava no Marketwatch, remove
+    MT5.MarketwatchRemove(sTicker)
+  }
+}
+```
+```{r, include=FALSE}
+df_todos_fiis = df_todos_fiis_salvo2
+```
+
+
+Verificamos novamente como está ficando a tabela.
+
+```{r}
+
+head(df_todos_fiis)
+```
+
+Para buscar o nome utilizaremos o [clubefii](https://www.clubefii.com.br/fiis/) por motivos de ensino. Perceba que é bem simples:
+
+```{r, eval = FALSE}
+PegarNome = function(sTickerFII)
+{
+  pagina_url = paste0("https://www.clubefii.com.br/fiis/", str_to_lower(sTickerFII))
+  pagina_flat = base::readLines(con = pagina_url, encoding="UTF-8", warn=F)
+  
+  iOnde_AproxIndicador = which(str_detect(pagina_flat, regex(sTickerFII, ignore_case = T)))
+  
+  ##Verifiquei que é na 4a posicao
+  sTexto = pagina_flat[iOnde_AproxIndicador[4]]
+  
+  ## Procura por aspas
+  iOndeEstao_simbolo_menos = str_locate_all(sTexto, '-')[[1]][,1]
+  sNomeFII = str_sub(sTexto, iOndeEstao_simbolo_menos[1] + 2, iOndeEstao_simbolo_menos[2] - 2)
+  return(sNomeFII)
+}
+
+for(i in 1:dim(df_todos_fiis)[1])
+{
+  sTicker = df_todos_fiis$Ticker[i]
+  
+  ### Nome
+  df_todos_fiis$Nome[i] = PegarNome(sTicker)
+}
+```
+```{r, include=FALSE}
+df_todos_fiis = df_todos_fiis_salvo3
+```
+
+E como último tratamento de dados, vamos:
+
+* Remover aqueles FIIs que não estão sendo negociados:
+
+```{r}
+df_todos_fiis = df_todos_fiis[!is.na(df_todos_fiis$Cotacao),]
+```
+
+* Vamos escalar `MM200Delta` e centralizá-los em 100 para entendimento melhor ao visualizá-lo:
+
+```{r}
+df_todos_fiis$MM200Delta = scale(df_todos_fiis$MM200Delta, center = 0) * 100
+```
+
+* Indicador extra, payback em anos, simplista e sem reinvestimentos, do valor da cota pelo *dividend yield*.
+```{r}
+df_todos_fiis$PB_Anos = round(df_todos_fiis$Cotacao / (df_todos_fiis$DY12m / 100 * df_todos_fiis$Cotacao), 1)
+```
+
+Tabela de web scrapping completada. Vamos dar uma olhada?
+
+```{r}
+head(df_todos_fiis)
+```
+
+**A nossa tabela está finalizada!** 📑
+
+Para salvar no computador a tabela e saber exatamente em que pasta será salvo, use os blocos seguintes:
+
+```{r eval=FALSE}
+write.csv2(df_todos_fiis, file = "tabela_fiis.csv", row.names = FALSE)
+```
+
+```{r eval=FALSE}
+print(getwd())
+```
+
+
+# Análise dos dados
+
+Faremos breves buscas de informações e o uso de tabelas por `dplyr` e gráficos por `ggplot2`. Segue:
+
+* Qual é a mediana de *dividend yield* de todos os FIIs disponíveis que pagam rendimentos?
+```{r}
+median(df_todos_fiis$DY12m, na.rm=T)
+```
+A mediana de *dividend yield* de todos os FIIs que pagam rendimentos é de 5,87%. 
+
+* Qual FII tem mais valor em caixa?
+```{r}
+df_todos_fiis[which.max(df_todos_fiis$VALOR_EM_CAIXA), ]
+```
+O **BTAL11** aparenta ter sido criado recentemente e tem impressionantes 77,8% em caixa.
+
+* Qual FII tem a cota mais esticada para cima neste momento que escrevo esse artigo?
+```{r}
+df_todos_fiis[which.max(df_todos_fiis$MM200Delta), ]
+```
+Não surpreendente, o **HCTR11** com *DY* de 14,89% é o FII com a cota mais esticada para cima.
+
+Tabela gerada por `dplyr` para resumir por setor, o número de FIIs, o *dividend yield* e o `MM200Delta`.
+
+```{r}
+Tabela_Dinamica = df_todos_fiis %>% 
+                  dplyr::group_by(Setor) %>% 
+                  dplyr::summarise(.groups = 'drop',
+                    n = n(),
+                    DY12m_median = median(DY12m, na.rm=TRUE),
+                    MM200Delta_median = median(MM200Delta, na.rm=TRUE)
+                  ) %>% dplyr::filter(n >= 2) %>% dplyr::arrange(desc(MM200Delta_median)) %>% print(n = Inf) 
+```
+
+Note que enquanto este post está sendo produzido, os fundos de "Papeis" são os mais esticados para cima e os "Hoteis" são os mais esticados para baixo (veja a coluna `MM200Delta_median`).
+
+Note que existem 50 FIIs (!) de papéis disponíveis e que os FIIs de shopping estão pagando *dividend yield* em mediana de 2,95%!
+
+O gráfico abaixo sucinta de forma gráfica os setores. Perceba os quadrantes.
+
+**Quadrantes**
+
+* Esquerda e acima: baixo yield e preços esticados para cima
+* Direita e acima: alto yield e preço esticado para cima 
+* Esquerda e abaixo: baixo yield e preços esticados para baixo
+* Direita e abaixo: alto yield e preço esticado para baixo
+
+
+```{r echo=FALSE}
+library(ggplot2)
+g = ggplot(Tabela_Dinamica, aes(x=DY12m_median, y=MM200Delta_median)) +
+  geom_point(size=2, shape=1) + 
+  geom_text(label=Tabela_Dinamica$Setor, hjust=0.45, vjust=1.5) +
+  xlab('Dividend Yield') +
+  ylab('MM200Delta') +
+  geom_hline(yintercept=100, linetype="dashed",color = "black", size=0.5, alpha = .4) +
+  geom_vline(xintercept=5, linetype="dashed",color = "black", size=0.5, alpha = .4) +
+  coord_cartesian(xlim = c(0, 11))
+print(g)
+```
+
+Note no gráfico acima que os FIIs do setor de "Imoveis Comerciais" estão bem esticados para cima (vertical), quase como os de "Papeis", mas não possuem o *Dividend Yield* (horizontal) que o de "Papeis" têm.
+
+# Conclusões
+
+As informações e ferramentas acima irão catapultá-lo para ter um vislumbre melhor do mercado de FIIs. Além de visões macro como o gráfico acima, há a tabela gerada, onde pode ver cada FII por vez. Sempre estude bem os produtos que você irá adquirir, recomendo os sites usados nesse artigo como [statusinvest](https://www.statusinvest.com.br/) e [clubefii](https://www.clubefii.com.br/), para ter ainda mais informações micro.
+
+Para os meus investimentos pessoais, eu utilizo sim a tabela gerada, entretanto eu busco ainda mais informações: mediana dos *yields* mensais, *payback* e outros. A tabela gerada neste artigo é somente uma base, a embalagem base. Agora é com você, crie a sua própria também!
+
+A programação R usada neste artigo tem total finalidade de simplificar o processo. Programadores mais experientes de `R` ao lerem este artigo podem notar a  possibilidade de vetorizar muitos dos processos usados, há bastante redundância de *loopings* e a troca de `<-` para `=` foi intencional dada finalidade do artigo.
+
+Espero que tenham gostado! GK
+
+&nbsp;
+
+Gostou do artigo? Quer comentar ou dar sugestões? Por favor, deixe suas sugestões e comentários [aqui]().
+
+[^1]: Dado $P_t$ a cotação ativo em $t \in \mathbb N^{+}$ e $P_T$ a cotação de hoje, $\frac{\frac{(\sum_{i=0}^{199} P_{T-i})}{200}}{P_{T}}$ ou "o resultado da média móvel 200 sobre a última cotação".
