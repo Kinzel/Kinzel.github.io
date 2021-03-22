@@ -10,7 +10,7 @@ output:
 Cada vez mais o mundo de finanças está sendo dominado por máquinas. O `mt5R` torna realidade uma poderosa mistura de uma máquina estatística (R) com outra máquina de *trading* (MT5) para você automatizar as suas operações ou fazer *download* de dados.
 
 <center>
-![](../img/todoslogos.png){width=400px}
+
 </center>
 
 # Site
@@ -19,7 +19,10 @@ Acesse o site do mt5R [aqui](https://kinzel.github.io/mt5R/).
 
 # Instalação
 
-<!-- Vídeo de X minutos, explicando todo o processo de instalação aqui.  -->
+<!-- 
+Vídeo de X minutos, explicando todo o processo de instalação aqui.  
+![](../img/todoslogos.png){width=400px}
+-->
 
 *Vídeo em construção. Por favor, acesse o site onde já há instruções* 🚧👷🛠🚧
 
