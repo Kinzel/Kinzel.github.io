@@ -15,8 +15,7 @@ blogdown::serve_site()
 
 blogdown::hugo_cmd("--cleanDestinationDir")
 
-rmarkdown::render("2021-03-15-listar-fiis.Rmd",encoding="UTF-8")
-
+## Para criar paginas, colocar o nome como "index", deletar o public/ e usar blogdown::build_site()
 
 # git init
 # git add .

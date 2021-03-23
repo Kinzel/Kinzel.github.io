@@ -321,7 +321,7 @@ for(i in 1:dim(df_todos_fiis)[1])
   Cotacao = MT5.GetSymbol(sTicker, iTF = 1440, iRows = 200)
   
   ## Alguns FIIs podem nao ter nenhuma cotacao, como algum muito recente
-  if(!is.null(Cotacao))
+  if(dim(Cotacao)[1]&gt;0)
   {
     ## Cotacao
     df_todos_fiis$Cotacao[i] = tail(Cotacao$Close, 1)
