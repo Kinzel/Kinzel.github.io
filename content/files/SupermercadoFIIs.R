@@ -1,8 +1,10 @@
 ##////////////////////////////
 # Feito por Guilherme Kinzel
 # Rio de Janeiro, 27 Março de 2021
+#
 # Código para coletar todos os FIIs disponíveis e indicadores usando mt5R e webscrapping
-a = Sys.time()
+# Demora cerca de 15 minutos para rodar completamente
+
 #////////////////////////////////////////////////////////////////
 ## Pacotes  ----
 
@@ -304,6 +306,3 @@ g = ggplot(Tabela_Dinamica, aes(x=DY12m_median, y=MM200Delta_median)) +
   geom_vline(xintercept=5, linetype="dashed",color = "black", size=0.5, alpha = .4) +
   coord_cartesian(xlim = c(0, 11))
 print(g)
-
-
-b = Sys.time()
